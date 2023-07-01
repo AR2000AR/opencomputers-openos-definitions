@@ -1,6 +1,6 @@
 ---@meta
 
----@class ComponentRobot : Component
+---@class libRobot
 local robot = {}
 
 ---Returns the robot's name.
