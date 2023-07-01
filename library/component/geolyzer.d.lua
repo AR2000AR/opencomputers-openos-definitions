@@ -12,12 +12,10 @@ local geolyzer = {}
 ---@param w? number width of scan
 ---@param d? number depth of scan
 ---@param h? number height of scan
----@param ignoreReplaceable? boolean
----@param options? table
 ---@return table 
 ---@overload fun(x:number, y:number,ignoreReplaceable:boolean):table
 ---@overload fun(x:number, y:number,options:table):table
-function geolyzer.scan(x,z,y,w,d,h,ignoreReplaceable,options)
+function geolyzer.scan(x,z,y,w,d,h)
 end
 
 ---Get some information on a directly adjacent block. By default the returned table returns the string ID of the block.
