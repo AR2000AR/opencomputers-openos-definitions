@@ -12,15 +12,20 @@ local geolyzer = {}
 ---@param w? number width of scan
 ---@param d? number depth of scan
 ---@param h? number height of scan
+---@param ignoreReplaceable? boolean
+---@param options? table
 ---@return table 
-function geolyzer.scan(x,z,y,w,d,h)
+---@overload fun(x:number, y:number,ignoreReplaceable:boolean):table
+---@overload fun(x:number, y:number,options:table):table
+function geolyzer.scan(x,z,y,w,d,h,ignoreReplaceable,options)
 end
 
 ---Get some information on a directly adjacent block. By default the returned table returns the string ID of the block.
 ---Note that a single call to this consumes the same amount of energy a call to scan does!
 ---@param side number
+---@param options? table
 ---@return table
-function geolyzer.analyze(side)
+function geolyzer.analyze(side, options)
 end
 
 ---Stores an item stack representation of the block on the specified side of the geolyzer 
