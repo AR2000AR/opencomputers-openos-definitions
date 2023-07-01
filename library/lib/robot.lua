@@ -1,10 +1,10 @@
 ---@meta
 
----@class libRobot
+---@class robotlib
 local robot = {}
 
 ---Returns the robot's name.
----@return string
+---@return string name
 function robot.name()
 end
 
@@ -84,7 +84,7 @@ end
 ---Note that if you are trying to drop items into an inventory below you, this is the wrong method. Use dropDown for that case. 
 ---This method, drop, will drop the items to the front.
 ---Returns true if at least one item was dropped, false otherwise.
----@param count number
+---@param count? number
 ---@return boolean
 function robot.drop(count)
 end
@@ -121,30 +121,29 @@ end
 ---Returns true if an item could be placed, false otherwise. 
 ---If placement failed, the secondary return parameter will describe why the placement failed.
 ---@param side? number
----@param sneaky boolean
----@return boolean, string
+---@param sneaky? boolean
+---@return boolean|string
 function robot.place(side, sneaky)
 end
 
 ---Same as robot.place except that the robot tries to place the item into the space directly above it.
 ---@param side? number
----@param sneaky boolean
----@return boolean, string
+---@param sneaky? boolean
+---@return boolean|string
 function robot.placeUp(side, sneaky)
 end
 
 ---Same as robot.place except that the robot tries to place the item into the space directly below it.
 ---@param side? number
----@param sneaky boolean
----@return boolean, string
+---@param sneaky? boolean
+---@return boolean|string
 function robot.placeDown(side, sneaky)
 end
 
 ---Returns the durability of the item currently in the tool slot, followed by its current durability, followed by its maximum durability.
 ---If no item is equipped or the item has no durability this returns nil and an error message describing why no durability could be returned. 
 ---The error message is one of no tool equipped or tool cannot be damaged.
----@return number, number, number
----@return nil, string
+---@return number|nil, number|string, number
 function robot.durability()
 end
 
@@ -154,21 +153,21 @@ end
 ---If successful the secondary parameter describes what the robot interacted with and will be one of 'entity', 'block' or 'fire'.
 ---@param side? number
 ---@param sneaky? boolean
----@return boolean, string?
+---@return boolean, string|nil 
 function robot.swing(side, sneaky)
 end
 
 --- Same as robot.swing except that the block or entity directly above the robot will be the target.
 ---@param side? number
 ---@param sneaky? boolean
----@return boolean, string?
+---@return boolean, string|nil
 function robot.swingUp(side, sneaky)
 end
 
 --- Same as robot.swing except that the block or entity directly below the robot will be the target.
 ---@param side? number
 ---@param sneaky? boolean
----@return boolean, string?
+---@return boolean, string|nil
 function robot.swingDown(side, sneaky)
 end
 
@@ -176,48 +175,48 @@ end
 ---If side is given the robot will try to 'right-click' only on the surface as specified by side, otherwise the robot will try all possible sides.
 ---If sneaky is set to true the robot will simulate a sneak-right-click (like if the player would be using shift during a right-click).
 ---Duration determins how long the item is used. 
----@param side number
+---@param side? number
 ---@param sneaky? boolean
 ---@param duration? number
----@return boolean, string?
+---@return boolean, string|nil
 function robot.use(side, sneaky, duration)
 end
 
 --- Same as robot.use except that the block or entity directly above the robot will be the target.
----@param side number
+---@param side? number
 ---@param sneaky? boolean
 ---@param duration? number
----@return boolean, string?
+---@return boolean, string|nil
 function robot.useUp(side, sneaky, duration)
 end
 
 --- Same as robot.use except that the block or entity directly below the robot will be the target.
----@param side number
+---@param side? number
 ---@param sneaky? boolean
 ---@param duration? number
----@return boolean, string?
+---@return boolean, string|nil
 function robot.useDown(side, sneaky, duration)
 end
 
 ---Tries to move the robot forward.
 ---Returns: true if the robot successfully moved, nil otherwise. 
 ---If movement fails a secondary result will be returned describing why it failed
----@return boolean, string?
+---@return boolean, string|nil
 function robot.forward()
 end
 
 ---Same as robot.forward() except that the robot tries to move backward.
----@return boolean, string?
+---@return boolean, string|nil
 function robot.back()
 end
 
 ---Same as robot.forward() except that the robot tries to move up.
----@return boolean, string?
+---@return boolean, string|nil
 function robot.up()
 end
 
 ---Same as robot.forward() except that the robot tries to move down.
----@return boolean, string?
+---@return boolean, string|nil
 function robot.down()
 end
 
@@ -244,7 +243,7 @@ function robot.selectTank(tank)
 end
 
 ---The the current fluid level in the specified tank, or, if none is specified, the selected tank.
----@param tank number
+---@param tank? number
 ---@return number
 function robot.tankLevel(tank)
 end
@@ -321,4 +320,5 @@ end
 ---@return boolean
 function robot.fillDown(count)
 end
+
 return robot
