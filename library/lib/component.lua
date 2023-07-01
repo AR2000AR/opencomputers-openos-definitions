@@ -21,6 +21,8 @@
 ---@field os_cardwriter ComponentOsCardWriter
 ---@field stargate ComponentStargate
 ---@field redstone ComponentRedstone
+---@field geolyzer ComponentGeolyzer
+---@field robot ComponentRobot
 local component = {}
 
 ---Returns the documentation string for the method with the specified name of the component with the specified address, if any. Note that you can also get this string by using tostring on a method in a proxy, for example tostring(component.screen.isOn).
