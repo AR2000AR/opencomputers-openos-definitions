@@ -321,3 +321,4 @@ end
 ---@return boolean
 function robot.fillDown(count)
 end
+return robot
