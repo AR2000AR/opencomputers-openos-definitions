@@ -1,29 +1,28 @@
 ---@meta
 
 ---@class threadapi
-local thread = {}
+local threadapi = {}
 
 ---Starts a new thread executing the function `thread_proc` and returns its thread handle, see Thread Handle API. This method takes an optional `...` which is passed to `thread_proc`. The runtime of the thread continues autonomously.
 ---@param thread_proc function
 ---@param ... any
 ---@return thread
-function thread.create(thread_proc, ...)
+function threadapi.create(thread_proc, ...)
 end
 
 ---Waits for the array of `threads` to complete. This blocking call can return in `timeout` seconds if provided. Returns success and an error message on failure. A thread is “completed” under multiple conditions, see `t:join()` for details.
 ---@param threads table<thread>
 ---@param timeout? number
-function thread.waitForAll(threads, timeout)
+function threadapi.waitForAll(threads, timeout)
 end
 
 --Returns the current thread `t` object. The init process does not represent a thread and nothing is returned from this method if called from the init process and not inside any thread.
 ---@return thread? t
-function thread.current()
+function threadapi.current()
 end
 
 ---@class thread
 local t = {}
-
 
 ---Resumes (or thaws) a suspended thread. Returns success and an error message on failure. A thread begins its life already in a running state and thus basic thread workflows will not ever need to call `t:resume()`. A “running” thread will autonomously continue until it completes. `t:resume()` is only necessary to resume a thread that has been suspended(`t:suspend()`). Note that because you are not directly resuming the thread any exceptions thrown from the thread are absorbed by the threading library and not exposed to your process.\
 --- - At this time there is no way to hook in an exception handler for threads but for now `event.onError` is used to print the error message to “/tmp/event.log”. Please note that currently the hard interrupt exception is only thrown once, and the behavior of a process with threads when a hard interrupt is thrown is unspecified. At this time, any one of the threads or the parent process may take the exception. These details are not part of the specification for threads and any part of this implementation detail may change later.
@@ -63,4 +62,16 @@ end
 function t:detach()
 end
 
-return thread
+---Blocks the caller until `t` is no longer running or (optionally) returns false if `timeout` seconds is reached. After a call to t:join() the thread state is “dead”. Any of the following circumstances allow join to finish and unblock the caller
+--- - The thread continues running until it returns from its thread function\
+--- - The thread aborts, or throws an uncaught exception\
+--- - The thread is suspended\
+--- - The thread is killed\
+---
+---Calling `thread.waitForAll({t})` is functionally equivalent to calling `t:join()`. When a processs is closing it will call `thread.waitForAll` on the group of its child threads if it has any. A child thread blocks its parent thread by the same machanism.
+---@param timeout? number
+---@return boolean
+---@return string
+function t:join(timeout) end
+
+return threadapi
